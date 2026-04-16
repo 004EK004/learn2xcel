@@ -1,0 +1,14 @@
+{
+  "collectionId": "enrollments",
+  "name": "Enrollments",
+  "attributes": [
+    { "key": "email", "type": "string", "size": 120, "required": true },
+    { "key": "trackId", "type": "string", "size": 50, "required": true },
+    { "key": "cohortId", "type": "string", "size": 50, "required": false },
+    { "key": "paymentStatus", "type": "string", "size": 30, "required": false }
+  ],
+  "indexes": [
+    { "key": "idx_email", "type": "key", "attributes": ["email"], "orders": ["ASC"] },
+    { "key": "idx_track", "type": "key", "attributes": ["trackId"], "orders": ["ASC"] }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "collectionId": "users_progress",
+  "name": "Users Progress",
+  "attributes": [
+    { "key": "trackId", "type": "string", "size": 50, "required": true },
+    { "key": "userId", "type": "string", "size": 50, "required": true },
+    { "key": "completedLessons", "type": "string", "size": 255, "required": false, "array": true },
+    { "key": "certificateUrl", "type": "string", "size": 2048, "required": false }
+  ],
+  "indexes": [
+    { "key": "idx_user", "type": "key", "attributes": ["userId"], "orders": ["ASC"] },
+    { "key": "idx_track", "type": "key", "attributes": ["trackId"], "orders": ["ASC"] }
+  ]
+}

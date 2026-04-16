@@ -1,0 +1,15 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop stop-color="#00F0FF" offset="0%"/>
+      <stop stop-color="#B026FF" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#07070c"/>
+  <circle cx="200" cy="160" r="180" fill="url(#g1)" opacity="0.18"/>
+  <circle cx="980" cy="400" r="220" fill="#B026FF" opacity="0.15"/>
+  <rect x="120" y="140" width="960" height="350" rx="32" ry="32" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)"/>
+  <text x="180" y="280" fill="#E2E8F0" font-family="Inter, 'Segoe UI', Arial" font-size="64" font-weight="700">Learn2Excel — AI + Excel Bootcamp</text>
+  <text x="180" y="340" fill="#A5F3FC" font-family="Inter, 'Segoe UI', Arial" font-size="28" font-weight="500">Tracks: AI with Excel · Original Excel · Data Analysis</text>
+  <text x="180" y="390" fill="#C084FC" font-family="Inter, 'Segoe UI', Arial" font-size="24">Appwrite-ready auth, futuristic UI, responsive layouts.</text>
+</svg>
