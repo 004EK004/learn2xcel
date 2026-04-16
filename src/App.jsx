@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import appwriteClient from "./lib/appwrite";
+import appwriteClient, {
+  account,
+  avatars,
+  databases,
+  storage,
+} from "./lib/appwrite";
 
 const navLinks = [
   { label: "Why Learn2XCEL", href: "#why" },
@@ -223,6 +228,11 @@ function App() {
   });
   const [menuOpen, setMenuOpen] = useState(false);
   const appwriteConfigured = Boolean(import.meta.env.VITE_APPWRITE_PROJECT_ID);
+  const appwriteProjectName =
+    import.meta.env.VITE_APPWRITE_PROJECT_NAME || "Learn2XCEL";
+  const appwriteServicesReady = Boolean(
+    appwriteClient && account && databases && storage && avatars
+  );
 
   useEffect(() => {
     const root = document.documentElement;
@@ -365,7 +375,9 @@ function App() {
                   <div className="glass-card p-4">
                     <p className="text-sm text-slate-400">Appwrite-ready stack</p>
                     <p className="mt-1 text-lg font-semibold">
-                      {appwriteConfigured ? "Members area enabled" : "Connect Appwrite"}
+                      {appwriteConfigured
+                        ? `${appwriteProjectName} workspace ready`
+                        : "Connect Appwrite"}
                     </p>
                   </div>
                 </div>
@@ -496,6 +508,9 @@ function App() {
                   </p>
                   <p className="mt-2 text-lg font-semibold">Dashboard Storytelling</p>
                   <p className="text-sm text-slate-400">Week 4 · 62% complete</p>
+                  <p className="mt-3 text-xs text-slate-500">
+                    Appwrite services: {appwriteServicesReady ? "ready" : "pending"}
+                  </p>
                 </div>
               </div>
               <div className="mt-8 grid gap-4 md:grid-cols-4">
