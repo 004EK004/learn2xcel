@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-midnight text-soft-white font-sans antialiased;
+}
+
+body.light {
+  @apply bg-soft-white text-slate-900;
+}
+
+::selection {
+  @apply bg-electric-cyan text-midnight;
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-glow;
+  }
+
+  .glass-card-light {
+    @apply rounded-2xl border border-slate-200 bg-white/70 shadow-lg backdrop-blur-xl;
+  }
+
+  .section-title {
+    @apply text-3xl font-semibold tracking-tight md:text-4xl;
+  }
+
+  .section-kicker {
+    @apply text-sm uppercase tracking-[0.3em] text-electric-cyan;
+  }
+}
