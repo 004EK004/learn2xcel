@@ -49,7 +49,7 @@ export function Navbar() {
           ))}
         </nav>
         <nav className="flex items-center gap-2 overflow-x-auto rounded-full border border-emerald-100 bg-emerald-50/70 px-3 py-1 text-xs text-slate-700 lg:hidden">
-          {links.slice(0, 3).map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}

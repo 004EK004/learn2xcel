@@ -128,7 +128,7 @@ export default function BootcampPage() {
             onClick={() => router.push("/contact")}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(16,185,129,0.25)] transition hover:-translate-y-0.5"
           >
-            Contact admissions
+            Contact Admissions
             <ExternalLink className="h-4 w-4" />
           </button>
         </div>
