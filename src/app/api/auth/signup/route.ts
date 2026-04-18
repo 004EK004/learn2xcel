@@ -1,4 +1,4 @@
-import { Client, ID, Users } from "appwrite";
+import { Client, ID, Users } from "node-appwrite";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
