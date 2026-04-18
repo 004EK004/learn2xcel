@@ -16,17 +16,17 @@ export default function GlobalError({
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-16 text-center">
-      <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.18em] text-cyan-100">
+      <div className="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs uppercase tracking-[0.18em] text-emerald-700">
         <AlertTriangle className="h-4 w-4 text-amber-300" />
         Something went wrong
       </div>
-      <p className="max-w-xl text-sm text-slate-300">
+      <p className="max-w-xl text-sm text-slate-700">
         We hit an unexpected error. Try again or return home. Error digest:
         {error.digest || "n/a"}
       </p>
       <button
         onClick={reset}
-        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 px-5 py-3 text-sm font-semibold text-white"
+        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-5 py-3 text-sm font-semibold text-white"
       >
         <RotateCcw className="h-4 w-4" />
         Retry

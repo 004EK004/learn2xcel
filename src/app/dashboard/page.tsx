@@ -66,8 +66,8 @@ export default function DashboardPage() {
 
   if (!user) {
     return (
-      <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-300">
-        <Shield className="h-4 w-4 text-cyan-300" />
+      <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-700">
+        <Shield className="h-4 w-4 text-emerald-300" />
         Redirecting to login…
       </div>
     );
@@ -76,13 +76,13 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <p className="text-xs uppercase tracking-[0.18em] text-cyan-100">
+        <p className="text-xs uppercase tracking-[0.18em] text-emerald-700">
           Dashboard
         </p>
-        <h1 className="text-3xl font-semibold text-white">
+        <h1 className="text-3xl font-semibold text-slate-900">
           Welcome back, {user.name || "Learner"}.
         </h1>
-        <p className="text-sm text-slate-300">
+        <p className="text-sm text-slate-700">
           Track your enrolled courses, progress, and certificates. Data syncs
           with Appwrite when configured.
         </p>
@@ -109,24 +109,24 @@ export default function DashboardPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5" />
                 <div className="relative flex items-center justify-between">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                    <p className="text-xs uppercase tracking-[0.18em] text-slate-600">
                       {track.level}
                     </p>
-                    <p className="text-lg font-semibold text-white">
+                    <p className="text-lg font-semibold text-slate-900">
                       {track.name}
                     </p>
                   </div>
-                  <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-slate-200">
+                  <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-slate-700">
                     {completion}% complete
                   </span>
                 </div>
                 <div className="relative mt-4 h-2 w-full overflow-hidden rounded-full bg-white/10">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-purple-600"
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-green-600"
                     style={{ width: `${completion}%` }}
                   />
                 </div>
-                <div className="mt-3 text-xs text-slate-300">
+                <div className="mt-3 text-xs text-slate-700">
                   Completed lessons:
                   <div className="mt-1 flex flex-wrap gap-2">
                     {item.completedLessons.map((lesson) => (
@@ -134,7 +134,7 @@ export default function DashboardPage() {
                         key={lesson}
                         className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1"
                       >
-                        <CheckCircle2 className="h-3 w-3 text-cyan-300" />
+                        <CheckCircle2 className="h-3 w-3 text-emerald-300" />
                         {lesson}
                       </span>
                     ))}
@@ -144,7 +144,7 @@ export default function DashboardPage() {
                   <a
                     href={item.certificateUrl}
                     target="_blank"
-                    className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200"
+                    className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200"
                   >
                     <FileBadge2 className="h-4 w-4" />
                     View certificate
@@ -155,14 +155,14 @@ export default function DashboardPage() {
           })}
       </div>
 
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-slate-300 shadow-[0_25px_80px_rgba(0,0,0,0.5)]">
-        <div className="flex items-center gap-2 text-white">
-          <Loader2 className="h-4 w-4 animate-spin text-cyan-300" />
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm text-slate-700 shadow-[0_25px_80px_rgba(0,0,0,0.5)]">
+        <div className="flex items-center gap-2 text-slate-900">
+          <Loader2 className="h-4 w-4 animate-spin text-emerald-300" />
           Live data note
         </div>
         <p className="mt-2">
           Connect your Appwrite endpoint, project, and database IDs in
-          <code className="mx-1 rounded bg-black/40 px-2 py-1 text-xs text-cyan-200">
+          <code className="mx-1 rounded bg-black/40 px-2 py-1 text-xs text-emerald-200">
             .env.local
           </code>
           to sync enrollments and progress automatically.

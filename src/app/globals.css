@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #07070c;
-  --foreground: #e2e8f0;
-  --accent: #00f0ff;
+  --background: #ffffff;
+  --foreground: #1e293b;
+  --accent: #16a34a;
   --font-geist-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-geist-mono: "SFMono-Regular", "JetBrains Mono", ui-monospace, monospace;
 }
@@ -21,9 +21,9 @@
 }
 
 body {
-  background: radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.08), transparent 35%),
-    radial-gradient(circle at 80% 0%, rgba(176, 38, 255, 0.08), transparent 30%),
-    #07070c;
+  background: radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(34, 197, 94, 0.08), transparent 30%),
+    #ffffff;
   color: var(--foreground);
   min-height: 100vh;
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
@@ -34,8 +34,8 @@ a {
 }
 
 .card-surface {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 253, 244, 0.8));
+  border: 1px solid rgba(16, 185, 129, 0.15);
   border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }

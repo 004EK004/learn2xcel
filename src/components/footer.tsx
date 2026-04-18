@@ -11,8 +11,9 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "Tracks", href: "/tracks" },
   { label: "Bootcamp", href: "/bootcamp" },
-  { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
 ];
 
 const resources = [
@@ -45,21 +46,21 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative mt-16 border-t border-white/10 bg-[#0a0a0f]/90 text-slate-200">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,240,255,0.1),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(176,38,255,0.12),transparent_40%)]" />
+    <footer className="relative mt-16 border-t border-emerald-100 bg-emerald-50/40 text-slate-700">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.1),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.1),transparent_40%)]" />
       <div className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-3 rounded-2xl bg-white/5 px-3 py-2 backdrop-blur">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400/70 via-purple-500/60 to-blue-700/60 text-lg font-semibold text-white">
+            <div className="inline-flex items-center gap-3 rounded-2xl border border-emerald-100 bg-white px-3 py-2">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 text-lg font-semibold text-white">
                 L2X
               </div>
               <div>
-                <p className="text-sm text-cyan-200">Learn2Excel</p>
-                <p className="text-xs text-slate-300">Excel + AI Bootcamp</p>
+                <p className="text-sm font-semibold text-emerald-700">Learn2Excel</p>
+                <p className="text-xs text-slate-700">Excel + AI Bootcamp</p>
               </div>
             </div>
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-slate-700">
               Build elite Excel, AI, and analytics skills with immersive,
               modern training built for fast movers.
             </p>
@@ -80,25 +81,24 @@ export function Footer() {
           <FooterColumn title="Resources" items={resources} />
 
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Newsletter</h3>
-            <p className="text-sm text-slate-300">
-              Futuristic tips, templates, and Appwrite-powered automations
-              delivered monthly.
+            <h3 className="text-lg font-semibold text-slate-900">Newsletter</h3>
+            <p className="text-sm text-slate-700">
+              Practical Excel tips and updates delivered monthly.
             </p>
             <form onSubmit={onSubmit} className="space-y-3">
-              <div className="relative overflow-hidden rounded-full border border-white/15 bg-white/5 shadow-lg">
+              <div className="relative overflow-hidden rounded-full border border-emerald-100 bg-white shadow-sm">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
-                  className="w-full bg-transparent px-4 py-3 text-sm text-white outline-none placeholder:text-slate-400"
+                  className="w-full bg-transparent px-4 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-600"
                   required
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="absolute right-1 top-1 inline-flex h-[38px] items-center rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 px-3 text-sm font-semibold text-white shadow-[0_0_20px_rgba(0,240,255,0.4)] transition hover:scale-[1.01]"
+                  className="absolute right-1 top-1 inline-flex h-[38px] items-center rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(16,185,129,0.25)] transition hover:scale-[1.01]"
                 >
                   <Send className="mr-1 h-4 w-4" />
                   {loading ? "Sending…" : "Join"}
@@ -108,26 +108,23 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-emerald-100 pt-6 text-xs text-slate-600 sm:flex-row">
           <p>
-            © {new Date().getFullYear()} Learn2Excel. Futuristic skills for the
-            modern analyst.
+            © {new Date().getFullYear()} Learn2Excel. Practical Excel skills for
+            modern professionals.
           </p>
           <div className="flex items-center gap-4">
-            <Link className="hover:text-white" href="#">
+            <Link className="hover:text-slate-900" href="/terms-and-conditions">
               Terms
             </Link>
-            <Link className="hover:text-white" href="#">
+            <Link className="hover:text-slate-900" href="/privacy-policy">
               Privacy
-            </Link>
-            <Link className="hover:text-white" href="#">
-              Cookie Preferences
             </Link>
             <button
               onClick={() =>
                 window.scrollTo({ top: 0, behavior: "smooth" })
               }
-              className="group inline-flex h-9 w-9 items-center justify-center rounded-full border border-cyan-400/60 bg-white/5 text-cyan-200 transition hover:bg-cyan-500/20"
+              className="group inline-flex h-9 w-9 items-center justify-center rounded-full border border-emerald-400/60 bg-white text-emerald-700 transition hover:bg-emerald-100"
               aria-label="Back to top"
             >
               <ArrowUp className="h-4 w-4" />
@@ -148,15 +145,15 @@ function FooterColumn({
 }) {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-white">{title}</h3>
-      <ul className="space-y-2 text-sm text-slate-300">
+      <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+      <ul className="space-y-2 text-sm text-slate-700">
         {items.map((item) => (
           <li key={item.label}>
             <Link
               href={item.href}
-              className="relative inline-flex items-center gap-2 transition hover:text-white"
+              className="relative inline-flex items-center gap-2 transition hover:text-slate-900"
             >
-              <span className="absolute -left-2 h-6 w-6 rounded-full bg-gradient-to-r from-cyan-500/15 to-purple-600/15 opacity-0 blur-sm transition group-hover:opacity-100" />
+              <span className="absolute -left-2 h-6 w-6 rounded-full bg-gradient-to-r from-emerald-500/15 to-green-600/15 opacity-0 blur-sm transition group-hover:opacity-100" />
               <span className="relative">{item.label}</span>
             </Link>
           </li>
@@ -179,9 +176,9 @@ function SocialButton({
     <Link
       aria-label={label}
       href={href}
-      className="group relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/5 text-white shadow-[0_0_20px_rgba(0,0,0,0.25)] transition hover:border-cyan-400/70 hover:shadow-[0_0_22px_rgba(0,240,255,0.4)]"
+      className="group relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-emerald-100 bg-white text-slate-900 shadow-sm transition hover:border-emerald-400/70 hover:bg-emerald-50"
     >
-      <span className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-transparent to-purple-500/20 opacity-0 transition-opacity group-hover:opacity-100" />
+      <span className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-transparent to-green-500/20 opacity-0 transition-opacity group-hover:opacity-100" />
       <span className={cn("relative", "group-hover:animate-pulse")}>
         {children}
       </span>
