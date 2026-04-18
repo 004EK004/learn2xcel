@@ -29,6 +29,22 @@ export const appwriteReady = Boolean(endpoint && projectId);
 const notConfiguredMessage =
   "Appwrite is not configured yet. Add env variables to enable live data.";
 
+type SignupErrorResponse = {
+  error?: string;
+  message?: string;
+};
+
+async function parseSignupError(
+  response: Response
+): Promise<SignupErrorResponse | null> {
+  try {
+    return (await response.json()) as SignupErrorResponse;
+  } catch (error) {
+    console.warn("Unable to parse signup error response payload", error);
+    return null;
+  }
+}
+
 export async function register(
   email: string,
   password: string,
@@ -37,6 +53,38 @@ export async function register(
   if (!account) {
     console.warn(notConfiguredMessage);
     return null;
+  }
+
+  if (typeof window !== "undefined") {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name }),
+      });
+
+      if (response.ok) {
+        return response.json();
+      }
+
+      const payload = await parseSignupError(response);
+
+      if (payload?.error === "server_signup_not_configured") {
+        return account.create(ID.unique(), email, password, name);
+      } else {
+        throw new Error(payload?.message || "Unable to create account.");
+      }
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.error(
+          `Server signup request failed (${error.message}), using client-side account creation as fallback`,
+          error
+        );
+        return account.create(ID.unique(), email, password, name);
+      } else {
+        throw error;
+      }
+    }
   }
 
   return account.create(ID.unique(), email, password, name);
