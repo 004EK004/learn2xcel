@@ -20,7 +20,7 @@ export const tracks: Track[] = [
     duration: "6 weeks",
     description:
       "Blend Excel mastery with AI copilots to automate, explain, and accelerate your analysis workflow.",
-    accent: "from-cyan-500 to-purple-500",
+    accent: "from-emerald-500 to-green-500",
     tools: ["ChatGPT", "Power Query", "Office Scripts", "Azure ML", "Copilot"],
     outcomes: [
       "Design AI-powered dashboards and insights",
@@ -68,7 +68,7 @@ export const tracks: Track[] = [
     duration: "5 weeks",
     description:
       "Master classic Excel foundations—from formulas to pivots to macros—with modern best practices.",
-    accent: "from-emerald-500 to-cyan-500",
+    accent: "from-emerald-500 to-emerald-500",
     tools: ["XLOOKUP", "Power Pivot", "VBA", "Dynamic Arrays", "Power Query"],
     outcomes: [
       "Confidently model scenarios with structured references",

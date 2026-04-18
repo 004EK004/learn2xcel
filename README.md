@@ -1,15 +1,17 @@
 # Learn2Excel — AI + Excel Bootcamp Website
 
-Modern, production-ready marketing site for Learn2Excel. Built with Next.js (App Router), Tailwind CSS, Framer Motion, and Appwrite-ready auth/database helpers. Includes dark/light mode, futuristic gradients, responsive layouts, and protected dashboard routing.
+Modern, production-ready marketing site for Learn2Excel. Built with Next.js (App Router), Tailwind CSS, Framer Motion, and Appwrite-ready auth/database helpers. Includes a clean white/green theme, responsive layouts, legal/compliance pages, and protected dashboard routing.
 
 ## Features
 - Three tracks: AI with Excel, Original Excel, Data Analysis (with detailed modules)
-- Sticky glassmorphic navbar, animated hero, testimonials carousel, CTA sections
-- Futuristic footer with newsletter capture + scroll-to-top
+- Sticky navbar, animated hero, testimonials carousel, CTA sections
+- Footer with newsletter capture, legal links, and scroll-to-top
 - Auth page with email/password + OAuth (Google/GitHub) via Appwrite
 - Protected `/dashboard` route with progress display and placeholders when Appwrite is not configured
 - Bootcamp schedule with enrollment action that writes to Appwrite (or falls back gracefully)
 - Contact/waitlist form writing to Appwrite enrollments collection
+- Affiliate support section with disclosure and sponsored link attributes
+- SEO metadata routes for `sitemap.xml` and `robots.txt`
 - Appwrite schemas and `.env.local.example` included
 
 ## Tech Stack
@@ -25,10 +27,11 @@ Modern, production-ready marketing site for Learn2Excel. Built with Next.js (App
 - `/tracks` Track overview
 - `/tracks/[slug]` AI with Excel, Original Excel, Data Analysis details
 - `/bootcamp` Cohort schedule + enrollment
-- `/pricing` Plans comparison
 - `/dashboard` Protected user dashboard (redirects to `/auth` if not logged in)
 - `/auth` Login/Signup + OAuth buttons
 - `/contact` Waitlist/contact form
+- `/privacy-policy` Privacy policy
+- `/terms-and-conditions` Terms and conditions
 - `/*` Custom 404 + error boundary
 
 ## Getting Started
@@ -80,5 +83,5 @@ APPWRITE_API_KEY=your-server-api-key
 - Set the correct Appwrite Web origins for your production domain.
 
 ## Customization
-- Update track content in `src/data/tracks.ts` and testimonials/pricing in `src/data/content.ts`.
+- Update track content in `src/data/tracks.ts` and testimonials/cohorts in `src/data/content.ts`.
 - Adjust theming in `src/app/globals.css` and shared layout in `src/app/layout.tsx`.

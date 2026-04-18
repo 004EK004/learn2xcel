@@ -10,7 +10,7 @@ export function TrackCard({ track, compact }: { track: Track; compact?: boolean 
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur"
+      className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm"
     >
       <div
         className={cn(
@@ -21,28 +21,28 @@ export function TrackCard({ track, compact }: { track: Track; compact?: boolean 
       <div className="relative flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-lg font-semibold text-white shadow-inner shadow-cyan-400/20">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-lg font-semibold text-emerald-700">
               {track.name.split(" ").slice(0, 2).map((word) => word[0]).join("")}
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-600">
                 {track.level}
               </p>
-              <h3 className="text-xl font-semibold text-white">{track.name}</h3>
+              <h3 className="text-xl font-semibold text-slate-900">{track.name}</h3>
             </div>
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs text-slate-200">
-            <Clock3 className="h-4 w-4 text-cyan-300" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1 text-xs text-slate-700">
+            <Clock3 className="h-4 w-4 text-emerald-600" />
             {track.duration}
           </span>
         </div>
-        <p className="text-sm text-slate-300">{track.description}</p>
+        <p className="text-sm text-slate-700">{track.description}</p>
         {!compact && (
-          <div className="flex flex-wrap gap-2 text-xs text-cyan-100">
+          <div className="flex flex-wrap gap-2 text-xs text-emerald-700">
             {track.tools.map((tool) => (
               <span
                 key={tool}
-                className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-3 py-1 shadow-inner shadow-cyan-500/10"
+                className="inline-flex items-center gap-1 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1"
               >
                 <Sparkles className="h-3 w-3" />
                 {tool}
@@ -52,7 +52,7 @@ export function TrackCard({ track, compact }: { track: Track; compact?: boolean 
         )}
         <Link
           href={`/tracks/${track.slug}`}
-          className="group inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-white/10 to-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:border-cyan-400/60 hover:from-cyan-500/20 hover:to-purple-600/20"
+          className="group inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:opacity-95"
         >
           View details
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
