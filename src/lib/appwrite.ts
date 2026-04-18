@@ -39,6 +39,30 @@ export async function register(
     return null;
   }
 
+  if (typeof window !== "undefined") {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name }),
+      });
+
+      if (response.ok) {
+        return response.json();
+      }
+
+      const payload = (await response.json().catch(() => null)) as
+        | { error?: string; message?: string }
+        | null;
+
+      if (payload?.error !== "server_signup_not_configured") {
+        throw new Error(payload?.message || "Unable to create account.");
+      }
+    } catch (error) {
+      console.error("Server signup failed, falling back to Appwrite Account API", error);
+    }
+  }
+
   return account.create(ID.unique(), email, password, name);
 }
 

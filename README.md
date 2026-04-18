@@ -55,18 +55,23 @@ npm run build
    - `users_progress.json` (trackId, userId, completedLessons[], certificateUrl)
    - `enrollments.json` (email, trackId, cohortId, paymentStatus)
 4) In Auth providers, enable Email/Password and optionally OAuth (Google/GitHub).  
-5) Grab your IDs and add them to `.env.local`:
+5) Copy `.env.local.example` to `.env.local`, then fill in your values:
 ```bash
-NEXT_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+NEXT_PUBLIC_APPWRITE_ENDPOINT=https://fra.cloud.appwrite.io/v1
 NEXT_PUBLIC_APPWRITE_PROJECT_ID=your-project-id
 NEXT_PUBLIC_APPWRITE_DATABASE_ID=your-database-id
 NEXT_PUBLIC_APPWRITE_USERS_COLLECTION_ID=users_progress
 NEXT_PUBLIC_APPWRITE_ENROLLMENTS_COLLECTION_ID=enrollments
+APPWRITE_ENDPOINT=https://fra.cloud.appwrite.io/v1
+APPWRITE_PROJECT_ID=your-project-id
+APPWRITE_API_KEY=your-server-api-key
 ```
-6) Restart `npm run dev` after setting env vars.
+6) Keep `APPWRITE_API_KEY` server-only. Add it to your GitHub repository secrets for deployments (never commit it).
+7) Restart `npm run dev` after setting env vars.
 
 ### Appwrite Integration Notes
 - All Appwrite helpers are in `src/lib/appwrite.ts`. They log a warning and fall back safely if env vars are missing.
+- Signup first calls `POST /api/auth/signup` (server-side Appwrite API key). If server signup is not configured, it falls back to client `account.create`.
 - Enrollment/contact submits to the `enrollments` collection. Dashboard progress reads from `users_progress`.
 - OAuth buttons call `account.createOAuth2Session` with success redirect to `/dashboard`.
 
@@ -77,4 +82,3 @@ NEXT_PUBLIC_APPWRITE_ENROLLMENTS_COLLECTION_ID=enrollments
 ## Customization
 - Update track content in `src/data/tracks.ts` and testimonials/pricing in `src/data/content.ts`.
 - Adjust theming in `src/app/globals.css` and shared layout in `src/app/layout.tsx`.
-
