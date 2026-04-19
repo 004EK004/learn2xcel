@@ -348,7 +348,7 @@ export default function TracksPage() {
               <div className="flex items-center gap-3">
                 <Image
                   src={item.image}
-                  alt={`Avatar for ${item.name}`}
+                  alt=""
                   width={56}
                   height={56}
                   className="h-14 w-14 rounded-full border border-emerald-100"
@@ -456,7 +456,7 @@ export default function TracksPage() {
             href="/bootcamp"
             className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-700 transition hover:scale-[1.01]"
           >
-            Enroll Now – Start Free Today
+            Enroll Now — Start Free Today
           </Link>
         </div>
       </section>
