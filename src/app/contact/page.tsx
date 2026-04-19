@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -51,6 +51,9 @@ const faqs = [
   },
 ];
 
+const SUCCESS_MESSAGE_DURATION = 4200;
+const CONFETTI_PIECE_COUNT = 14;
+
 export default function ContactPage() {
   const [form, setForm] = useState({ email: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
@@ -58,10 +61,27 @@ export default function ContactPage() {
   const [now, setNow] = useState(() => new Date());
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const messageLimit = 500;
+  const successTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showSuccessState = () => {
+    if (successTimeoutRef.current) {
+      clearTimeout(successTimeoutRef.current);
+    }
+    setSubmitted(true);
+    successTimeoutRef.current = setTimeout(
+      () => setSubmitted(false),
+      SUCCESS_MESSAGE_DURATION
+    );
+  };
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 1000);
-    return () => window.clearInterval(timer);
+    return () => {
+      window.clearInterval(timer);
+      if (successTimeoutRef.current) {
+        window.clearTimeout(successTimeoutRef.current);
+      }
+    };
   }, []);
 
   const onSubmit = async (e: FormEvent) => {
@@ -73,13 +93,11 @@ export default function ContactPage() {
     if (result?.success) {
       toast.success("We received your message. Talk soon!");
       setForm({ email: "", message: "" });
-      setSubmitted(true);
-      window.setTimeout(() => setSubmitted(false), 4200);
+      showSuccessState();
     } else {
       toast.success("Captured locally. Connect Appwrite to store leads.");
       setForm({ email: "", message: "" });
-      setSubmitted(true);
-      window.setTimeout(() => setSubmitted(false), 4200);
+      showSuccessState();
     }
   };
 
@@ -106,13 +124,16 @@ export default function ContactPage() {
           Share your goals and timeline. We&apos;ll respond quickly with a
           personalized recommendation aligned to your role and career direction.
         </p>
-        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-sm backdrop-blur-sm">
-          <span className="relative flex h-2.5 w-2.5">
+        <div
+          className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-sm backdrop-blur-sm"
+          aria-live="polite"
+        >
+          <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/80" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
           </span>
           <Clock3 className="h-4 w-4 text-emerald-600" />
-          <span className="font-medium">We reply in &lt; 24 hours</span>
+          <span className="font-medium">We reply in {"<"} 24 hours</span>
           <span className="text-slate-500">
             {now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </span>
@@ -140,6 +161,7 @@ export default function ContactPage() {
                   className="peer w-full bg-transparent pl-7 text-sm text-slate-900 outline-none placeholder:text-transparent"
                   placeholder="Work email"
                   autoComplete="email"
+                  aria-label="Work email"
                   required
                 />
                 <label
@@ -162,6 +184,8 @@ export default function ContactPage() {
                   maxLength={messageLimit}
                   className="peer w-full resize-none bg-transparent pl-7 text-sm text-slate-900 outline-none placeholder:text-transparent"
                   placeholder="Tell us what you want to build"
+                  aria-label="What do you want to build?"
+                  aria-describedby="contact-message-help contact-message-count"
                   required
                 />
                 <label
@@ -170,11 +194,15 @@ export default function ContactPage() {
                 >
                   What do you want to build?
                 </label>
-                <p className="mt-2 text-xs text-slate-500">
+                <p id="contact-message-help" className="mt-2 text-xs text-slate-500">
                   Dashboards, automations, team training, or career transitions.
                 </p>
               </div>
-              <p className="mt-2 text-right text-xs text-slate-500">
+              <p
+                id="contact-message-count"
+                aria-live="polite"
+                className="mt-2 text-right text-xs text-slate-500"
+              >
                 {form.message.length}/{messageLimit}
               </p>
             </div>
@@ -211,8 +239,11 @@ export default function ContactPage() {
                   <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                   Thank you — we&apos;ll be in touch shortly.
                 </div>
-                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-                  {[...Array(14)].map((_, index) => (
+                <div
+                  className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl"
+                  aria-hidden="true"
+                >
+                  {[...Array(CONFETTI_PIECE_COUNT)].map((_, index) => (
                     <span
                       key={index}
                       className="absolute top-0 h-2 w-1.5 animate-[confetti_900ms_ease-out_forwards] rounded-sm bg-emerald-400"
@@ -307,6 +338,7 @@ export default function ContactPage() {
                   onClick={() => setOpenFaq(isOpen ? null : index)}
                   className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm font-medium text-slate-800"
                   aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
                 >
                   <span>{faq.question}</span>
                   <ChevronDown
@@ -318,6 +350,7 @@ export default function ContactPage() {
                 <AnimatePresence initial={false}>
                   {isOpen ? (
                     <motion.div
+                      id={`faq-answer-${index}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
