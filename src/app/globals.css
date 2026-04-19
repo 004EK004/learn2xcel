@@ -29,6 +29,10 @@ body {
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 a {
   text-decoration: none;
 }
@@ -38,4 +42,28 @@ a {
   border: 1px solid rgba(16, 185, 129, 0.15);
   border-radius: 24px;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes confetti {
+  0% {
+    transform: translateY(-8px) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(95px) rotate(240deg);
+    opacity: 0;
+  }
 }
