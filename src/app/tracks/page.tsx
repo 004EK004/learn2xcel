@@ -348,7 +348,7 @@ export default function TracksPage() {
               <div className="flex items-center gap-3">
                 <Image
                   src={item.image}
-                  alt={`${item.name} testimonial profile photo`}
+                  alt={`Avatar for ${item.name}`}
                   width={56}
                   height={56}
                   className="h-14 w-14 rounded-full border border-emerald-100"
@@ -423,8 +423,14 @@ export default function TracksPage() {
         <div className="space-y-3">
           {faqs.map((faq) => (
             <details key={faq.question} className="group rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-slate-900">
-                {faq.question}
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+                <span>{faq.question}</span>
+                <span
+                  className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-emerald-200 text-emerald-700 transition group-open:rotate-45"
+                  aria-hidden="true"
+                >
+                  +
+                </span>
               </summary>
               <p className="mt-3 text-sm text-slate-700">{faq.answer}</p>
             </details>
