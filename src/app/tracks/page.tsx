@@ -150,7 +150,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 86400;
+
 export default function TracksPage() {
+  const daysUntilNextCohort = getDaysUntilNextCohort();
+
   return (
     <div className="flex flex-col gap-16">
       <section className="rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-green-50 p-6 shadow-sm md:p-10">
@@ -445,7 +449,7 @@ export default function TracksPage() {
               Enrollment
             </p>
             <h2 className="mt-2 text-2xl font-semibold md:text-3xl">
-              Next cohort starts in 14 days — secure your spot.
+              Next cohort starts in {daysUntilNextCohort} days — secure your spot.
             </h2>
             <p className="mt-2 text-sm text-emerald-50">
               Choose your track now and begin with guided onboarding, real project
@@ -462,6 +466,13 @@ export default function TracksPage() {
       </section>
     </div>
   );
+}
+
+function getDaysUntilNextCohort() {
+  const today = new Date();
+  const day = today.getDay();
+  const daysToNextMonday = (8 - day) % 7 || 7;
+  return daysToNextMonday;
 }
 
 function FeatureItem({
