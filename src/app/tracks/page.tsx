@@ -154,6 +154,10 @@ export const revalidate = 86400;
 
 export default function TracksPage() {
   const daysUntilNextCohort = getDaysUntilNextCohort();
+  const urgencyMessage =
+    daysUntilNextCohort === 0
+      ? "Next cohort starts today — secure your spot."
+      : `Next cohort starts in ${daysUntilNextCohort} days — secure your spot.`;
 
   return (
     <div className="flex flex-col gap-16">
@@ -352,7 +356,7 @@ export default function TracksPage() {
               <div className="flex items-center gap-3">
                 <Image
                   src={item.image}
-                  alt=""
+                  alt={`${item.name} avatar`}
                   width={56}
                   height={56}
                   className="h-14 w-14 rounded-full border border-emerald-100"
@@ -449,7 +453,7 @@ export default function TracksPage() {
               Enrollment
             </p>
             <h2 className="mt-2 text-2xl font-semibold md:text-3xl">
-              Next cohort starts in {daysUntilNextCohort} days — secure your spot.
+              {urgencyMessage}
             </h2>
             <p className="mt-2 text-sm text-emerald-50">
               Choose your track now and begin with guided onboarding, real project
@@ -471,7 +475,7 @@ export default function TracksPage() {
 function getDaysUntilNextCohort() {
   const today = new Date();
   const day = today.getDay();
-  const daysToNextMonday = (8 - day) % 7 || 7;
+  const daysToNextMonday = (8 - day) % 7;
   return daysToNextMonday;
 }
 
