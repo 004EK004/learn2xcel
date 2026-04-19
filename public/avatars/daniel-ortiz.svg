@@ -1,0 +1,6 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" rx="60" fill="#F0FDF4"/>
+  <circle cx="60" cy="45" r="22" fill="#065F46"/>
+  <rect x="25" y="76" width="70" height="30" rx="15" fill="#047857"/>
+  <text x="60" y="51" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="white">DO</text>
+</svg>
