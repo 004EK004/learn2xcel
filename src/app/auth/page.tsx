@@ -49,8 +49,7 @@ export default function AuthPage() {
             : "Create your Learn2Excel account"}
         </h1>
         <p className="text-sm text-slate-700">
-          Sessions run through Appwrite when configured. In demo mode we keep
-          your session local.
+          Sessions are managed through Appwrite authentication.
         </p>
       </div>
 
@@ -107,6 +106,7 @@ export default function AuthPage() {
 
         <div className="grid gap-3 sm:grid-cols-2">
           <button
+            type="button"
             onClick={() => loginOauth("google")}
             className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-400/60"
           >
@@ -114,6 +114,7 @@ export default function AuthPage() {
             Google
           </button>
           <button
+            type="button"
             onClick={() => loginOauth("github")}
             className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-400/60"
           >
@@ -125,6 +126,7 @@ export default function AuthPage() {
         <p className="mt-4 text-center text-xs text-slate-600">
           {mode === "login" ? "New here?" : "Already have an account?"}{" "}
           <button
+            type="button"
             onClick={() => setMode(mode === "login" ? "signup" : "login")}
             className="text-emerald-200 underline"
           >

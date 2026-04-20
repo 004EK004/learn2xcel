@@ -15,19 +15,26 @@ const usersCollectionId = process.env.NEXT_PUBLIC_APPWRITE_USERS_COLLECTION_ID;
 const enrollmentsCollectionId =
   process.env.NEXT_PUBLIC_APPWRITE_ENROLLMENTS_COLLECTION_ID;
 
-const client = new Client();
-
-if (endpoint && projectId) {
-  client.setEndpoint(endpoint).setProject(projectId);
-}
-
-const account = endpoint && projectId ? new Account(client) : null;
-const databases = endpoint && projectId ? new Databases(client) : null;
+export const client = new Client();
 
 export const appwriteReady = Boolean(endpoint && projectId);
+export const appwriteConfigError =
+  "Appwrite is not configured. Set NEXT_PUBLIC_APPWRITE_ENDPOINT and NEXT_PUBLIC_APPWRITE_PROJECT_ID in .env.local.";
 
-const notConfiguredMessage =
-  "Appwrite is not configured yet. Add env variables to enable live data.";
+if (appwriteReady) {
+  client.setEndpoint(endpoint as string).setProject(projectId as string);
+}
+
+export const account = new Account(client);
+const databases = new Databases(client);
+
+const notConfiguredMessage = appwriteConfigError;
+
+function ensureAppwriteConfigured() {
+  if (!appwriteReady) {
+    throw new Error(appwriteConfigError);
+  }
+}
 
 type SignupErrorResponse = {
   error?: string;
@@ -50,10 +57,7 @@ export async function register(
   password: string,
   name?: string
 ) {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  ensureAppwriteConfigured();
 
   if (typeof window !== "undefined") {
     try {
@@ -91,18 +95,12 @@ export async function register(
 }
 
 export async function login(email: string, password: string) {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  ensureAppwriteConfigured();
   return account.createEmailPasswordSession(email, password);
 }
 
 export async function loginWithProvider(provider: "google" | "github") {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  ensureAppwriteConfigured();
   if (typeof window === "undefined") return null;
 
   const success = `${window.location.origin}/dashboard`;
@@ -115,10 +113,7 @@ export async function loginWithProvider(provider: "google" | "github") {
 }
 
 export async function getCurrentUser() {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  if (!appwriteReady) return null;
   try {
     return await account.get();
   } catch (error) {
@@ -128,10 +123,7 @@ export async function getCurrentUser() {
 }
 
 export async function logout() {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  if (!appwriteReady) return null;
   try {
     await account.deleteSession("current");
     return true;
@@ -149,7 +141,7 @@ type EnrollmentPayload = {
 };
 
 export async function createEnrollment(payload: EnrollmentPayload) {
-  if (!databases || !databaseId || !enrollmentsCollectionId) {
+  if (!appwriteReady || !databaseId || !enrollmentsCollectionId) {
     console.warn(notConfiguredMessage);
     return { success: false, message: notConfiguredMessage };
   }
@@ -175,7 +167,7 @@ type ProgressPayload = {
 };
 
 export async function saveProgress(payload: ProgressPayload) {
-  if (!databases || !databaseId || !usersCollectionId) {
+  if (!appwriteReady || !databaseId || !usersCollectionId) {
     console.warn(notConfiguredMessage);
     return { success: false, message: notConfiguredMessage };
   }
@@ -194,7 +186,7 @@ export async function saveProgress(payload: ProgressPayload) {
 }
 
 export async function getUserProgress(userId: string) {
-  if (!databases || !databaseId || !usersCollectionId) {
+  if (!appwriteReady || !databaseId || !usersCollectionId) {
     console.warn(notConfiguredMessage);
     return [] as Models.Document[];
   }
@@ -210,7 +202,7 @@ export async function getUserProgress(userId: string) {
 }
 
 export async function saveLead(payload: { email: string; message?: string }) {
-  if (!databases || !databaseId || !enrollmentsCollectionId) {
+  if (!appwriteReady || !databaseId || !enrollmentsCollectionId) {
     console.warn(notConfiguredMessage);
     return { success: false, message: notConfiguredMessage };
   }
