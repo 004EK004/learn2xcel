@@ -25,13 +25,21 @@ if (appwriteReady) {
   client.setEndpoint(endpoint as string).setProject(projectId as string);
 }
 
-export const account = new Account(client);
-export const databases = new Databases(client);
+export const account = appwriteReady ? new Account(client) : null;
+export const databases = appwriteReady ? new Databases(client) : null;
 
 function ensureAppwriteConfigured() {
   if (!appwriteReady) {
     throw new Error(appwriteConfigError);
   }
+}
+
+function getAccount() {
+  ensureAppwriteConfigured();
+  if (!account) {
+    throw new Error(appwriteConfigError);
+  }
+  return account;
 }
 
 type SignupErrorResponse = {
@@ -55,7 +63,7 @@ export async function register(
   password: string,
   name?: string
 ) {
-  ensureAppwriteConfigured();
+  const configuredAccount = getAccount();
 
   if (typeof window !== "undefined") {
     try {
@@ -72,7 +80,7 @@ export async function register(
       const payload = await parseSignupError(response);
 
       if (payload?.error === "server_signup_not_configured") {
-        return account.create(ID.unique(), email, password, name);
+        return configuredAccount.create(ID.unique(), email, password, name);
       } else {
         throw new Error(payload?.message || "Unable to create account.");
       }
@@ -82,28 +90,27 @@ export async function register(
           `Server signup request failed (${error.message}), using client-side account creation as fallback`,
           error
         );
-        return account.create(ID.unique(), email, password, name);
+        return configuredAccount.create(ID.unique(), email, password, name);
       } else {
         throw error;
       }
     }
   }
 
-  return account.create(ID.unique(), email, password, name);
+  return configuredAccount.create(ID.unique(), email, password, name);
 }
 
 export async function login(email: string, password: string) {
-  ensureAppwriteConfigured();
-  return account.createEmailPasswordSession(email, password);
+  return getAccount().createEmailPasswordSession(email, password);
 }
 
 export async function loginWithProvider(provider: "google" | "github") {
-  ensureAppwriteConfigured();
+  const configuredAccount = getAccount();
   if (typeof window === "undefined") return null;
 
   const success = `${window.location.origin}/dashboard`;
   const failure = `${window.location.origin}/auth?error=oauth`;
-  return account.createOAuth2Session(
+  return configuredAccount.createOAuth2Session(
     provider === "google" ? OAuthProvider.Google : OAuthProvider.Github,
     success,
     failure
@@ -111,9 +118,9 @@ export async function loginWithProvider(provider: "google" | "github") {
 }
 
 export async function getCurrentUser() {
-  if (!appwriteReady) return null;
+  const configuredAccount = getAccount();
   try {
-    return await account.get();
+    return await configuredAccount.get();
   } catch (error) {
     console.error("Appwrite get current user failed", error);
     return null;
@@ -121,9 +128,9 @@ export async function getCurrentUser() {
 }
 
 export async function logout() {
-  if (!appwriteReady) return null;
+  const configuredAccount = getAccount();
   try {
-    await account.deleteSession("current");
+    await configuredAccount.deleteSession("current");
     return true;
   } catch (error) {
     console.error("Appwrite logout failed", error);
@@ -139,7 +146,7 @@ type EnrollmentPayload = {
 };
 
 export async function createEnrollment(payload: EnrollmentPayload) {
-  if (!appwriteReady || !databaseId || !enrollmentsCollectionId) {
+  if (!databases || !databaseId || !enrollmentsCollectionId) {
     console.warn(appwriteConfigError);
     return { success: false, message: appwriteConfigError };
   }
@@ -165,7 +172,7 @@ type ProgressPayload = {
 };
 
 export async function saveProgress(payload: ProgressPayload) {
-  if (!appwriteReady || !databaseId || !usersCollectionId) {
+  if (!databases || !databaseId || !usersCollectionId) {
     console.warn(appwriteConfigError);
     return { success: false, message: appwriteConfigError };
   }
@@ -184,7 +191,7 @@ export async function saveProgress(payload: ProgressPayload) {
 }
 
 export async function getUserProgress(userId: string) {
-  if (!appwriteReady || !databaseId || !usersCollectionId) {
+  if (!databases || !databaseId || !usersCollectionId) {
     console.warn(appwriteConfigError);
     return [] as Models.Document[];
   }
@@ -200,7 +207,7 @@ export async function getUserProgress(userId: string) {
 }
 
 export async function saveLead(payload: { email: string; message?: string }) {
-  if (!appwriteReady || !databaseId || !enrollmentsCollectionId) {
+  if (!databases || !databaseId || !enrollmentsCollectionId) {
     console.warn(appwriteConfigError);
     return { success: false, message: appwriteConfigError };
   }
