@@ -36,10 +36,7 @@ function ensureAppwriteConfigured() {
 
 function getAccount() {
   ensureAppwriteConfigured();
-  if (!account) {
-    throw new Error(appwriteConfigError);
-  }
-  return account;
+  return account as Account;
 }
 
 type SignupErrorResponse = {
