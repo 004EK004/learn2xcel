@@ -95,9 +95,7 @@ export default function ContactPage() {
       setForm({ email: "", message: "" });
       showSuccessState();
     } else {
-      toast.success("Captured locally. Connect Appwrite to store leads.");
-      setForm({ email: "", message: "" });
-      showSuccessState();
+      toast.error("Message could not be saved right now. Please try again.");
     }
   };
 

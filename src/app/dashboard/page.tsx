@@ -144,6 +144,7 @@ export default function DashboardPage() {
                   <a
                     href={item.certificateUrl}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200"
                   >
                     <FileBadge2 className="h-4 w-4" />

@@ -40,8 +40,7 @@ export function Footer() {
       toast.success("Signed up for the newsletter!");
       setEmail("");
     } else {
-      toast.success("Captured locally — connect Appwrite to store leads.");
-      setEmail("");
+      toast.error("Signup failed. Please try again.");
     }
   };
 
