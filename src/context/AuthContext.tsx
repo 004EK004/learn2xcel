@@ -30,31 +30,6 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-const createDemoUser = (
-  email: string,
-  name?: string
-): Models.User<Models.Preferences> => {
-  const now = new Date().toISOString();
-  return {
-    $id: "demo-user",
-    $createdAt: now,
-    $updatedAt: now,
-    name: name || "Demo Learner",
-    email,
-    registration: now,
-    status: true,
-    passwordUpdate: now,
-    emailVerification: false,
-    phone: "",
-    phoneVerification: false,
-    prefs: {} as Models.Preferences,
-    accessedAt: now,
-    labels: [],
-    mfa: false,
-    targets: [],
-  };
-};
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] =
     useState<Models.User<Models.Preferences> | null>(null);
@@ -78,21 +53,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [refresh]);
 
   const login = async (email: string, password: string) => {
-    if (!appwriteReady) {
-      setUser(createDemoUser(email));
-      setLoading(false);
-      return;
-    }
     await appwriteLogin(email, password);
     await refresh();
   };
 
   const register = async (email: string, password: string, name?: string) => {
-    if (!appwriteReady) {
-      setUser(createDemoUser(email, name));
-      setLoading(false);
-      return;
-    }
     await appwriteRegister(email, password, name);
     await appwriteLogin(email, password);
     await refresh();
@@ -108,11 +73,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const loginOauth = async (provider: "google" | "github") => {
-    if (!appwriteReady) {
-      setUser(createDemoUser("demo@learn2xcel.com"));
-      setLoading(false);
-      return;
-    }
     await loginWithProvider(provider);
   };
 

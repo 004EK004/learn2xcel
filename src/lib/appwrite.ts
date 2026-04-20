@@ -15,19 +15,29 @@ const usersCollectionId = process.env.NEXT_PUBLIC_APPWRITE_USERS_COLLECTION_ID;
 const enrollmentsCollectionId =
   process.env.NEXT_PUBLIC_APPWRITE_ENROLLMENTS_COLLECTION_ID;
 
-const client = new Client();
-
-if (endpoint && projectId) {
-  client.setEndpoint(endpoint).setProject(projectId);
-}
-
-const account = endpoint && projectId ? new Account(client) : null;
-const databases = endpoint && projectId ? new Databases(client) : null;
+export const client = new Client();
 
 export const appwriteReady = Boolean(endpoint && projectId);
+export const appwriteConfigError =
+  "Appwrite is not configured. Set NEXT_PUBLIC_APPWRITE_ENDPOINT and NEXT_PUBLIC_APPWRITE_PROJECT_ID in .env.local.";
 
-const notConfiguredMessage =
-  "Appwrite is not configured yet. Add env variables to enable live data.";
+if (appwriteReady) {
+  client.setEndpoint(endpoint as string).setProject(projectId as string);
+}
+
+export const account = appwriteReady ? new Account(client) : null;
+export const databases = appwriteReady ? new Databases(client) : null;
+
+function ensureAppwriteConfigured() {
+  if (!appwriteReady) {
+    throw new Error(appwriteConfigError);
+  }
+}
+
+function getAccount() {
+  ensureAppwriteConfigured();
+  return account as Account;
+}
 
 type SignupErrorResponse = {
   error?: string;
@@ -50,10 +60,7 @@ export async function register(
   password: string,
   name?: string
 ) {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  const configuredAccount = getAccount();
 
   if (typeof window !== "undefined") {
     try {
@@ -70,7 +77,7 @@ export async function register(
       const payload = await parseSignupError(response);
 
       if (payload?.error === "server_signup_not_configured") {
-        return account.create(ID.unique(), email, password, name);
+        return configuredAccount.create(ID.unique(), email, password, name);
       } else {
         throw new Error(payload?.message || "Unable to create account.");
       }
@@ -80,34 +87,27 @@ export async function register(
           `Server signup request failed (${error.message}), using client-side account creation as fallback`,
           error
         );
-        return account.create(ID.unique(), email, password, name);
+        return configuredAccount.create(ID.unique(), email, password, name);
       } else {
         throw error;
       }
     }
   }
 
-  return account.create(ID.unique(), email, password, name);
+  return configuredAccount.create(ID.unique(), email, password, name);
 }
 
 export async function login(email: string, password: string) {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
-  return account.createEmailPasswordSession(email, password);
+  return getAccount().createEmailPasswordSession(email, password);
 }
 
 export async function loginWithProvider(provider: "google" | "github") {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  const configuredAccount = getAccount();
   if (typeof window === "undefined") return null;
 
   const success = `${window.location.origin}/dashboard`;
   const failure = `${window.location.origin}/auth?error=oauth`;
-  return account.createOAuth2Session(
+  return configuredAccount.createOAuth2Session(
     provider === "google" ? OAuthProvider.Google : OAuthProvider.Github,
     success,
     failure
@@ -115,12 +115,9 @@ export async function loginWithProvider(provider: "google" | "github") {
 }
 
 export async function getCurrentUser() {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  const configuredAccount = getAccount();
   try {
-    return await account.get();
+    return await configuredAccount.get();
   } catch (error) {
     console.error("Appwrite get current user failed", error);
     return null;
@@ -128,12 +125,9 @@ export async function getCurrentUser() {
 }
 
 export async function logout() {
-  if (!account) {
-    console.warn(notConfiguredMessage);
-    return null;
-  }
+  const configuredAccount = getAccount();
   try {
-    await account.deleteSession("current");
+    await configuredAccount.deleteSession("current");
     return true;
   } catch (error) {
     console.error("Appwrite logout failed", error);
@@ -150,8 +144,8 @@ type EnrollmentPayload = {
 
 export async function createEnrollment(payload: EnrollmentPayload) {
   if (!databases || !databaseId || !enrollmentsCollectionId) {
-    console.warn(notConfiguredMessage);
-    return { success: false, message: notConfiguredMessage };
+    console.warn(appwriteConfigError);
+    return { success: false, message: appwriteConfigError };
   }
   try {
     const doc = await databases.createDocument(
@@ -176,8 +170,8 @@ type ProgressPayload = {
 
 export async function saveProgress(payload: ProgressPayload) {
   if (!databases || !databaseId || !usersCollectionId) {
-    console.warn(notConfiguredMessage);
-    return { success: false, message: notConfiguredMessage };
+    console.warn(appwriteConfigError);
+    return { success: false, message: appwriteConfigError };
   }
   try {
     const doc = await databases.createDocument(
@@ -195,7 +189,7 @@ export async function saveProgress(payload: ProgressPayload) {
 
 export async function getUserProgress(userId: string) {
   if (!databases || !databaseId || !usersCollectionId) {
-    console.warn(notConfiguredMessage);
+    console.warn(appwriteConfigError);
     return [] as Models.Document[];
   }
   try {
@@ -211,8 +205,8 @@ export async function getUserProgress(userId: string) {
 
 export async function saveLead(payload: { email: string; message?: string }) {
   if (!databases || !databaseId || !enrollmentsCollectionId) {
-    console.warn(notConfiguredMessage);
-    return { success: false, message: notConfiguredMessage };
+    console.warn(appwriteConfigError);
+    return { success: false, message: appwriteConfigError };
   }
   try {
     const doc = await databases.createDocument(

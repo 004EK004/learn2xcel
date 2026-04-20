@@ -9,10 +9,8 @@ type SignupBody = {
   name?: string;
 };
 
-const endpoint =
-  process.env.APPWRITE_ENDPOINT || process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
-const projectId =
-  process.env.APPWRITE_PROJECT_ID || process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+const endpoint = process.env.APPWRITE_ENDPOINT;
+const projectId = process.env.APPWRITE_PROJECT_ID;
 const apiKey = process.env.APPWRITE_API_KEY;
 const SIGNUP_WINDOW_MS = 60_000;
 const SIGNUP_MAX_ATTEMPTS = 10;
@@ -88,7 +86,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const email = body.email?.trim();
+  const email = body.email?.trim()?.toLowerCase();
   const password = body.password;
   const name = body.name?.trim();
 
