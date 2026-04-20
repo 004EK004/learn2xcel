@@ -10,7 +10,7 @@ export const testimonials = [
     name: "Luis Ortega",
     role: "FP&A Lead",
     quote:
-      "The bootcamp felt like an engineering sprint—clean patterns, real datasets, and Appwrite-ready workflows I could deploy on day one.",
+      "The bootcamp felt like an engineering sprint—clean patterns, real datasets, and hands-on workflows I could deploy on day one.",
     company: "Northwind Retail",
   },
   {
@@ -25,15 +25,15 @@ export const testimonials = [
 export const cohorts = [
   {
     id: "cohort-may",
-    name: "May Fast Track",
-    startDate: "2024-05-06",
+    name: "May 2026 Fast Track",
+    startDate: "2026-05-11",
     format: "Live online (Mon/Wed)",
     price: "$480",
   },
   {
     id: "cohort-jun",
-    name: "June Accelerator",
-    startDate: "2024-06-03",
+    name: "June 2026 Accelerator",
+    startDate: "2026-06-08",
     format: "Hybrid · Live + self-paced",
     price: "$520",
   },

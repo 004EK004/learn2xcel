@@ -11,5 +11,5 @@
   <rect x="120" y="140" width="960" height="350" rx="32" ry="32" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)"/>
   <text x="180" y="280" fill="#E2E8F0" font-family="Inter, 'Segoe UI', Arial" font-size="64" font-weight="700">Learn2Excel — AI + Excel Bootcamp</text>
   <text x="180" y="340" fill="#A5F3FC" font-family="Inter, 'Segoe UI', Arial" font-size="28" font-weight="500">Tracks: AI with Excel · Original Excel · Data Analysis</text>
-  <text x="180" y="390" fill="#C084FC" font-family="Inter, 'Segoe UI', Arial" font-size="24">Appwrite-ready auth, futuristic UI, responsive layouts.</text>
+  <text x="180" y="390" fill="#C084FC" font-family="Inter, 'Segoe UI', Arial" font-size="24">Seamless authentication, premium UI, responsive layouts.</text>
 </svg>

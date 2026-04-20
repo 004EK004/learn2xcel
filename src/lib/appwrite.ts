@@ -19,7 +19,7 @@ export const client = new Client();
 
 export const appwriteReady = Boolean(endpoint && projectId);
 export const appwriteConfigError =
-  "Appwrite is not configured. Set NEXT_PUBLIC_APPWRITE_ENDPOINT and NEXT_PUBLIC_APPWRITE_PROJECT_ID in .env.local.";
+  "Authentication service is not configured. Set NEXT_PUBLIC_APPWRITE_ENDPOINT and NEXT_PUBLIC_APPWRITE_PROJECT_ID in .env.local.";
 
 if (appwriteReady) {
   client.setEndpoint(endpoint as string).setProject(projectId as string);
@@ -28,14 +28,14 @@ if (appwriteReady) {
 export const account = appwriteReady ? new Account(client) : null;
 export const databases = appwriteReady ? new Databases(client) : null;
 
-function ensureAppwriteConfigured() {
+function ensureAuthServiceConfigured() {
   if (!appwriteReady) {
     throw new Error(appwriteConfigError);
   }
 }
 
 function getAccount() {
-  ensureAppwriteConfigured();
+  ensureAuthServiceConfigured();
   return account as Account;
 }
 
@@ -119,7 +119,7 @@ export async function getCurrentUser() {
   try {
     return await configuredAccount.get();
   } catch (error) {
-    console.error("Appwrite get current user failed", error);
+    console.error("Auth service get current user failed", error);
     return null;
   }
 }
@@ -130,7 +130,7 @@ export async function logout() {
     await configuredAccount.deleteSession("current");
     return true;
   } catch (error) {
-    console.error("Appwrite logout failed", error);
+    console.error("Auth service logout failed", error);
     return false;
   }
 }
@@ -156,7 +156,7 @@ export async function createEnrollment(payload: EnrollmentPayload) {
     );
     return { success: true, document: doc };
   } catch (error) {
-    console.error("Appwrite enrollment failed", error);
+    console.error("Enrollment save failed", error);
     return { success: false, message: "Unable to create enrollment" };
   }
 }
@@ -182,7 +182,7 @@ export async function saveProgress(payload: ProgressPayload) {
     );
     return { success: true, document: doc };
   } catch (error) {
-    console.error("Appwrite save progress failed", error);
+    console.error("Progress save failed", error);
     return { success: false, message: "Unable to save progress" };
   }
 }
@@ -198,7 +198,7 @@ export async function getUserProgress(userId: string) {
     ]);
     return response.documents;
   } catch (error) {
-    console.error("Appwrite fetch progress failed", error);
+    console.error("Progress fetch failed", error);
     return [];
   }
 }
@@ -217,7 +217,7 @@ export async function saveLead(payload: { email: string; message?: string }) {
     );
     return { success: true, document: doc };
   } catch (error) {
-    console.error("Appwrite lead capture failed", error);
+    console.error("Lead capture failed", error);
     return { success: false, message: "Unable to save lead" };
   }
 }

@@ -8,7 +8,7 @@ import { ArrowRight, Sparkle } from "lucide-react";
 const phrases = [
   "Master Excel with AI copilots.",
   "Ship dashboards in hours, not days.",
-  "Automate reporting with Appwrite + Office Scripts.",
+  "Automate reporting with live integrations and Office Scripts.",
 ];
 
 export function Hero() {
@@ -35,7 +35,7 @@ export function Hero() {
   }, [index]);
 
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-green-50 px-6 py-12 shadow-sm md:px-10 md:py-16">
+    <section className="relative overflow-hidden rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-50 via-white to-green-50 px-6 py-12 shadow-[0_24px_80px_rgba(16,185,129,0.12)] md:px-10 md:py-16">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(16,185,129,0.15),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(34,197,94,0.12),transparent_35%)]" />
       <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center">
         <div className="space-y-6">
@@ -47,8 +47,8 @@ export function Hero() {
             Learn2Excel: Elite Excel, AI, and data analysis training for the
             modern professional.
           </h1>
-          <p className="max-w-xl text-base text-slate-700 sm:text-lg">
-            Three tracks, live cohorts, and Appwrite-ready integrations.
+          <p className="max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
+            Three tracks, live cohorts, and seamless real-world integrations.
             Everything is designed to help you build production-grade reporting,
             automation, and analytics.
           </p>
@@ -64,14 +64,14 @@ export function Hero() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/bootcamp"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(16,185,129,0.25)] transition hover:scale-[1.01]"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(16,185,129,0.25)] transition duration-300 hover:scale-[1.03] hover:shadow-[0_16px_34px_rgba(16,185,129,0.42)]"
             >
               Explore Bootcamp
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/tracks"
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-emerald-400/60 hover:text-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:text-emerald-700 hover:shadow-[0_12px_26px_rgba(16,185,129,0.15)]"
             >
               View Tracks
             </Link>
@@ -81,7 +81,7 @@ export function Hero() {
               { label: "Career-ready tracks", value: "3" },
               { label: "Mentor feedback loops", value: "Weekly" },
               { label: "Certificate paths", value: "Yes" },
-              { label: "Appwrite-ready", value: "Out of the box" },
+              { label: "Hands-on labs", value: "Every cohort" },
             ].map((stat) => (
               <div
                 key={stat.label}
