@@ -86,7 +86,7 @@ export default function TrackDetail({
             </h3>
             <p className="mt-2 text-sm text-slate-700">
               Secure your spot in the next bootcamp cohort and connect your
-              Appwrite project for real data capture.
+              Learn2Excel workspace for real data capture.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link

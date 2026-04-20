@@ -84,7 +84,7 @@ export default function DashboardPage() {
         </h1>
         <p className="text-sm text-slate-700">
           Track your enrolled courses, progress, and certificates. Data syncs
-          with Appwrite when configured.
+          with your workspace when configured.
         </p>
       </div>
 
@@ -162,7 +162,7 @@ export default function DashboardPage() {
           Live data note
         </div>
         <p className="mt-2">
-          Connect your Appwrite endpoint, project, and database IDs in
+          Connect your workspace endpoint and project IDs in
           <code className="mx-1 rounded bg-black/40 px-2 py-1 text-xs text-emerald-200">
             .env.local
           </code>

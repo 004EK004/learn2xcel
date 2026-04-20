@@ -32,18 +32,18 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_25px_70px_rgba(0,0,0,0.45)]">
+        <div className="space-y-4 rounded-3xl border border-emerald-200/70 bg-white p-6 shadow-[0_24px_70px_rgba(16,185,129,0.14)]">
           <p className="text-xs uppercase tracking-[0.18em] text-emerald-700">
             Bootcamp Schedule
           </p>
           <h3 className="text-xl font-semibold text-slate-900">
-            Choose a cohort, connect Appwrite, and start building.
+            Choose a cohort, join live sessions, and start building.
           </h3>
           <div className="space-y-3">
             {cohorts.map((cohort) => (
               <div
                 key={cohort.id}
-                className="flex flex-col gap-1 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-700"
+                className="flex flex-col gap-1 rounded-2xl border border-emerald-100 bg-emerald-50/40 px-4 py-3 text-sm text-slate-700 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(16,185,129,0.14)]"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-slate-900">{cohort.name}</span>
@@ -57,7 +57,7 @@ export default function Home() {
           </div>
             <Link
               href="/bootcamp"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_22px_rgba(16,185,129,0.3)] transition hover:scale-[1.01]"
+               className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_8px_22px_rgba(16,185,129,0.3)] transition duration-300 hover:scale-[1.03] hover:shadow-[0_16px_30px_rgba(16,185,129,0.42)]"
             >
               View full schedule
             </Link>

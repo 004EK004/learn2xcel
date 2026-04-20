@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import type { ReactNode } from "react";
 import {
   BadgeCheck,
   BookOpenCheck,
@@ -99,7 +98,7 @@ const testimonials = [
     name: "Daniel Ortiz",
     role: "Operations Manager, Logistics",
     quote:
-      "I joined to improve Excel fundamentals and left with a complete KPI dashboard tied to real sample data and Appwrite-authenticated access.",
+      "I joined to improve Excel fundamentals and left with a complete KPI dashboard tied to realistic sample data and secure access flows.",
     result: "Delivered first end-to-end KPI dashboard",
     image: "/avatars/daniel-ortiz.svg",
   },
@@ -130,6 +129,45 @@ const faqs = [
     question: "What is the refund policy?",
     answer:
       "If the track is not the right fit, request a refund within the published guarantee window shown at checkout.",
+  },
+];
+
+const whyHighlights = [
+  {
+    icon: ChartNoAxesColumn,
+    title: "Faster execution",
+    description:
+      "Use AI-assisted workflows to reduce reporting cycle time and deliver decision-ready insights sooner.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Secure real-world projects",
+    description:
+      "Every track includes practical projects with realistic datasets and polished delivery standards.",
+  },
+  {
+    icon: CalendarClock,
+    title: "Flexible momentum",
+    description:
+      "Choose live or self-paced learning and switch formats without losing progress.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Career-proof outcomes",
+    description:
+      "Share verified certificates and portfolio work in interviews, reviews, and promotion cycles.",
+  },
+  {
+    icon: BriefcaseBusiness,
+    title: "Business-first curriculum",
+    description:
+      "Lessons are built for analysts, finance, operations, and product teams tackling real goals.",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "Expert guidance",
+    description:
+      "Structured weekly guidance, implementation reviews, and actionable mentor feedback.",
   },
 ];
 
@@ -170,8 +208,8 @@ export default function TracksPage() {
         </h1>
         <p className="mt-4 max-w-3xl text-sm text-slate-700 md:text-base">
           Build faster dashboards and production-ready projects with live or
-          self-paced flexibility, Appwrite authentication, and real sample data.
-          Learn Excel online in a format that fits your workweek.
+          self-paced flexibility, seamless authentication, and real sample
+          data. Learn Excel online in a format that fits your workweek.
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
@@ -377,37 +415,25 @@ export default function TracksPage() {
         <h2 id="why-learn2excel-heading" className="text-2xl font-semibold text-slate-900 md:text-3xl">
           Why Learn2Excel
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          <FeatureItem
-            icon={<ChartNoAxesColumn className="h-5 w-5 text-emerald-700" />}
-            title="Dashboard speed"
-            description="Use AI-assisted workflows to reduce reporting cycle time and deliver insights faster."
-          />
-          <FeatureItem
-            icon={<FileCheck2 className="h-5 w-5 text-emerald-700" />}
-            title="Production-ready projects"
-            description="Every track includes practical projects built with realistic data and clean delivery standards."
-          />
-          <FeatureItem
-            icon={<CalendarClock className="h-5 w-5 text-emerald-700" />}
-            title="Flexible format"
-            description="Choose live or self-paced learning and switch without resetting your momentum."
-          />
-          <FeatureItem
-            icon={<BadgeCheck className="h-5 w-5 text-emerald-700" />}
-            title="Career-ready proof"
-            description="Share your completion certificate and projects in reviews, interviews, and internal promotions."
-          />
-          <FeatureItem
-            icon={<BriefcaseBusiness className="h-5 w-5 text-emerald-700" />}
-            title="Business-first curriculum"
-            description="Lessons are designed for analysts, finance, operations, and product teams—not abstract demos."
-          />
-          <FeatureItem
-            icon={<BookOpenCheck className="h-5 w-5 text-emerald-700" />}
-            title="Real support"
-            description="Structured curriculum, practical examples, and clear implementation guidance each week."
-          />
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {whyHighlights.map((item, index) => (
+            <article
+              key={item.title}
+              className="group relative overflow-hidden rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-white/90 via-emerald-50/45 to-green-50/55 p-6 shadow-[0_16px_40px_rgba(15,23,42,0.08)] backdrop-blur-sm transition duration-300 hover:scale-105 hover:border-emerald-300/80 hover:shadow-[0_26px_55px_rgba(16,185,129,0.2)] animate-[fade-in-up_700ms_ease-out_both]"
+              style={{ animationDelay: `${index * 90}ms` }}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.2),transparent_42%)] opacity-0 transition duration-300 group-hover:opacity-100" />
+              <div className="relative inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-[0_10px_22px_rgba(16,185,129,0.32)]">
+                <item.icon className="h-6 w-6" />
+              </div>
+              <h3 className="relative mt-5 text-lg font-semibold text-slate-900">
+                {item.title}
+              </h3>
+              <p className="relative mt-2 text-sm leading-relaxed text-slate-700">
+                {item.description}
+              </p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -477,24 +503,4 @@ function getDaysUntilNextCohort() {
   const day = today.getDay();
   const daysToNextMonday = (8 - day) % 7;
   return daysToNextMonday;
-}
-
-function FeatureItem({
-  icon,
-  title,
-  description,
-}: {
-  icon: ReactNode;
-  title: string;
-  description: string;
-}) {
-  return (
-    <article className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm">
-      <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50">
-        {icon}
-      </div>
-      <h3 className="mt-4 text-base font-semibold text-slate-900">{title}</h3>
-      <p className="mt-2 text-sm text-slate-700">{description}</p>
-    </article>
-  );
 }

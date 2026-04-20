@@ -292,11 +292,11 @@ export default function ContactPage() {
           </ul>
 
           <div className="mt-5 rounded-2xl border border-emerald-200/80 bg-emerald-50/60 p-4 text-sm text-slate-700">
-            <p className="font-semibold text-slate-900">Appwrite-ready from day one</p>
+            <p className="font-semibold text-slate-900">Built for secure launch from day one</p>
             <p className="mt-1">
-              If Appwrite variables are not configured yet, we safely capture
-              locally for prototyping and switch to persistent storage when your
-              project is connected.
+              If live services are not configured yet, we safely capture locally
+              for prototyping and switch to persistent storage when your
+              workspace is connected.
             </p>
           </div>
         </motion.aside>

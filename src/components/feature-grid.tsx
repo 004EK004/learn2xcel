@@ -7,9 +7,9 @@ const features = [
       "Join live labs or run self-paced sprints with mentor touchpoints every week.",
   },
   {
-    title: "Appwrite Ready",
+    title: "Secure Real-World Projects",
     description:
-      "Auth, database, and functions stubs are pre-wired so you can connect instantly.",
+      "Build portfolio-grade flows with seamless authentication and production-style data patterns.",
   },
   {
     title: "AI Copilot Recipes",
@@ -29,18 +29,18 @@ export function FeatureGrid() {
       {features.map((feature) => (
         <div
           key={feature.title}
-          className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-white p-5 shadow-sm"
+          className="group relative overflow-hidden rounded-3xl border border-emerald-100 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(16,185,129,0.16)]"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5" />
           <div className="relative flex items-start gap-3">
-            <div className="mt-1 rounded-2xl bg-gradient-to-br from-emerald-500/80 to-green-600/80 p-2 text-white shadow-sm">
+            <div className="mt-1 rounded-2xl bg-gradient-to-br from-emerald-500/80 to-green-600/80 p-2 text-white shadow-sm transition duration-300 group-hover:scale-105">
               <Zap className="h-4 w-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-semibold text-slate-900">
-                  {feature.title}
-                </h3>
+                 <h3 className="text-lg font-semibold text-slate-900">
+                   {feature.title}
+                 </h3>
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
               </div>
               <p className="mt-2 text-sm text-slate-700">{feature.description}</p>
