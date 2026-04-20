@@ -26,9 +26,7 @@ if (appwriteReady) {
 }
 
 export const account = new Account(client);
-const databases = new Databases(client);
-
-const notConfiguredMessage = appwriteConfigError;
+export const databases = new Databases(client);
 
 function ensureAppwriteConfigured() {
   if (!appwriteReady) {
@@ -142,8 +140,8 @@ type EnrollmentPayload = {
 
 export async function createEnrollment(payload: EnrollmentPayload) {
   if (!appwriteReady || !databaseId || !enrollmentsCollectionId) {
-    console.warn(notConfiguredMessage);
-    return { success: false, message: notConfiguredMessage };
+    console.warn(appwriteConfigError);
+    return { success: false, message: appwriteConfigError };
   }
   try {
     const doc = await databases.createDocument(
@@ -168,8 +166,8 @@ type ProgressPayload = {
 
 export async function saveProgress(payload: ProgressPayload) {
   if (!appwriteReady || !databaseId || !usersCollectionId) {
-    console.warn(notConfiguredMessage);
-    return { success: false, message: notConfiguredMessage };
+    console.warn(appwriteConfigError);
+    return { success: false, message: appwriteConfigError };
   }
   try {
     const doc = await databases.createDocument(
@@ -187,7 +185,7 @@ export async function saveProgress(payload: ProgressPayload) {
 
 export async function getUserProgress(userId: string) {
   if (!appwriteReady || !databaseId || !usersCollectionId) {
-    console.warn(notConfiguredMessage);
+    console.warn(appwriteConfigError);
     return [] as Models.Document[];
   }
   try {
@@ -203,8 +201,8 @@ export async function getUserProgress(userId: string) {
 
 export async function saveLead(payload: { email: string; message?: string }) {
   if (!appwriteReady || !databaseId || !enrollmentsCollectionId) {
-    console.warn(notConfiguredMessage);
-    return { success: false, message: notConfiguredMessage };
+    console.warn(appwriteConfigError);
+    return { success: false, message: appwriteConfigError };
   }
   try {
     const doc = await databases.createDocument(
