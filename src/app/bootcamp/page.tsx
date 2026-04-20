@@ -33,7 +33,7 @@ export default function BootcampPage() {
       toast.success("Enrollment captured! Check your inbox for details.");
       router.push("/dashboard");
     } else {
-      toast.success("Enrollment recorded locally. Connect Appwrite to store.");
+      toast.error("Enrollment could not be saved right now. Please try again.");
     }
   };
 
