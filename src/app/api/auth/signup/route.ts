@@ -86,7 +86,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const email = body.email?.trim().toLowerCase();
+  const email = body.email?.trim()?.toLowerCase();
   const password = body.password;
   const name = body.name?.trim();
 
