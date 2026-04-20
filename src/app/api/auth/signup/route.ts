@@ -18,8 +18,10 @@ const MAX_BODY_BYTES = 8_192;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 128;
 const NAME_MAX_LENGTH = 80;
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_TRACKED_CLIENTS = 10_000;
+const PRUNE_INTERVAL_MS = 60_000;
 const signupAttempts = new Map<string, { count: number; windowStart: number }>();
+let lastPruneAt = 0;
 
 function getClientKey(request: Request) {
   const directIp =
@@ -48,10 +50,84 @@ function pruneRateLimitStore(now: number) {
   }
 }
 
+function isAlphaNumeric(charCode: number) {
+  return (
+    (charCode >= 48 && charCode <= 57) ||
+    (charCode >= 65 && charCode <= 90) ||
+    (charCode >= 97 && charCode <= 122)
+  );
+}
+
+function hasOnlyEmailLocalChars(value: string) {
+  for (let i = 0; i < value.length; i += 1) {
+    const charCode = value.charCodeAt(i);
+    const isAllowedSymbol =
+      charCode === 46 || // .
+      charCode === 95 || // _
+      charCode === 37 || // %
+      charCode === 43 || // +
+      charCode === 45; // -
+    if (!isAlphaNumeric(charCode) && !isAllowedSymbol) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function hasOnlyEmailDomainChars(value: string) {
+  for (let i = 0; i < value.length; i += 1) {
+    const charCode = value.charCodeAt(i);
+    const isAllowedSymbol = charCode === 46 || charCode === 45; // . or -
+    if (!isAlphaNumeric(charCode) && !isAllowedSymbol) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function isValidEmail(email: string) {
+  if (email.length < 3 || email.length > 254) {
+    return false;
+  }
+
+  const atIndex = email.indexOf("@");
+  if (atIndex <= 0 || atIndex !== email.lastIndexOf("@") || atIndex >= email.length - 1) {
+    return false;
+  }
+
+  const local = email.slice(0, atIndex);
+  const domain = email.slice(atIndex + 1);
+  if (
+    local.length === 0 ||
+    local.length > 64 ||
+    domain.length < 3 ||
+    domain.startsWith(".") ||
+    domain.endsWith(".") ||
+    domain.includes("..")
+  ) {
+    return false;
+  }
+
+  const lastDotIndex = domain.lastIndexOf(".");
+  if (lastDotIndex <= 0 || lastDotIndex === domain.length - 1) {
+    return false;
+  }
+
+  const tld = domain.slice(lastDotIndex + 1);
+  if (tld.length < 2) {
+    return false;
+  }
+
+  return hasOnlyEmailLocalChars(local) && hasOnlyEmailDomainChars(domain);
+}
+
 function isRateLimited(request: Request) {
   const key = getClientKey(request);
   const now = Date.now();
-  pruneRateLimitStore(now);
+  if (signupAttempts.size > MAX_TRACKED_CLIENTS || now - lastPruneAt >= PRUNE_INTERVAL_MS) {
+    pruneRateLimitStore(now);
+    lastPruneAt = now;
+  }
   const entry = signupAttempts.get(key);
 
   if (!entry || now - entry.windowStart >= SIGNUP_WINDOW_MS) {
@@ -150,7 +226,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!EMAIL_PATTERN.test(email)) {
+  if (!isValidEmail(email)) {
     return NextResponse.json({ message: "Invalid email address." }, { status: 400 });
   }
 
