@@ -1,0 +1,21 @@
+name: Appwrite Setup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  setup-appwrite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Appwrite
+        uses: appwrite/setup-for-appwrite@v2
+        with:
+          method: key
+          key: ${{ secrets.APPWRITE_API_KEY }}
+          project: ${{ secrets.APPWRITE_PROJECT_ID }}
