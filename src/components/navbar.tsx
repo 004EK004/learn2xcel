@@ -32,18 +32,18 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-emerald-200/70 bg-white/90 backdrop-blur-xl">
       {/* Scroll progress bar */}
-      <div className="absolute inset-x-0 top-0 h-[3px] bg-slate-100">
+      <div className="absolute inset-x-0 top-0 h-[3px] bg-emerald-100/70">
         <div
-          className="h-full bg-gradient-to-r from-emerald-400 to-green-500 transition-all duration-100"
+          className="h-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-500 transition-all duration-200 ease-out"
           style={{ width: `${scrollPct}%` }}
         />
       </div>
 
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
         <Link href="/" className="group flex items-center gap-3">
-          <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 text-lg font-semibold text-white shadow-[0_10px_24px_rgba(15,23,42,0.25)]">
+          <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 text-lg font-semibold text-white shadow-[0_10px_24px_rgba(16,185,129,0.32)] transition-transform duration-300 ease-out group-hover:scale-[1.03]">
             L2X
           </span>
           <div className="leading-tight">
@@ -52,14 +52,14 @@ export function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-slate-200/90 bg-white/80 px-3 py-1 text-sm text-slate-700 shadow-sm lg:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-emerald-100 bg-white/90 px-3 py-1 text-sm text-slate-700 shadow-sm lg:flex">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
-                "rounded-full px-3 py-2 transition hover:bg-slate-900 hover:text-white",
-                pathname === link.href && "bg-slate-900 text-white"
+                "rounded-full px-3 py-2 transition-all duration-250 ease-out hover:-translate-y-0.5 hover:bg-emerald-600 hover:text-white hover:shadow-[0_8px_20px_rgba(16,185,129,0.2)]",
+                pathname === link.href && "bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-[0_8px_20px_rgba(16,185,129,0.28)]"
               )}
             >
               {link.label}
@@ -68,14 +68,14 @@ export function Navbar() {
         </nav>
 
         {/* Mobile nav */}
-        <nav className="flex items-center gap-1 overflow-x-auto rounded-full border border-slate-200/90 bg-white/80 px-3 py-1 text-xs text-slate-700 lg:hidden">
+        <nav className="flex items-center gap-1 overflow-x-auto rounded-full border border-emerald-100 bg-white/90 px-3 py-1 text-xs text-slate-700 lg:hidden">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
-                "whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-slate-900 hover:text-white",
-                pathname === link.href && "bg-slate-900 text-white"
+                "whitespace-nowrap rounded-full px-3 py-2 transition-all duration-250 ease-out hover:bg-emerald-600 hover:text-white",
+                pathname === link.href && "bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-[0_6px_16px_rgba(16,185,129,0.25)]"
               )}
             >
               {link.label}
@@ -110,9 +110,9 @@ export function Navbar() {
           ) : (
             <Link
               href="/bootcamp"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_26px_rgba(16,185,129,0.3)] transition hover:scale-[1.03] hover:shadow-[0_14px_32px_rgba(16,185,129,0.4)]"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_26px_rgba(16,185,129,0.3)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_14px_32px_rgba(16,185,129,0.4)]"
             >
-              {loading ? "…" : "🔥 Start Now"}
+              {loading ? "…" : "Start Now"}
             </Link>
           )}
         </div>
