@@ -3,6 +3,9 @@ name: Appwrite Setup
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   setup-appwrite:
     runs-on: ubuntu-latest
