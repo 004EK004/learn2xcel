@@ -38,8 +38,11 @@ function StatCounter({ icon: Icon, value, suffix, label, decimals, trigger }: {
   const display = useCountUp(value, decimals, trigger);
   return (
     <div className="flex items-center gap-2">
-      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-        <Icon className="h-4 w-4" />
+      <div
+        className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"
+        aria-label={label}
+      >
+        <Icon className="h-4 w-4" aria-hidden="true" />
       </div>
       <div>
         <p className="text-base font-bold text-slate-900 tabular-nums">
@@ -50,6 +53,9 @@ function StatCounter({ icon: Icon, value, suffix, label, decimals, trigger }: {
     </div>
   );
 }
+
+const CHART_BARS = [40, 65, 55, 80, 72, 90, 85];
+const HIGHLIGHTED_BAR = 5;
 
 const dashboardRows = [
   { label: "Weekly Report", value: "↑ 34%", color: "text-emerald-600" },
@@ -165,14 +171,14 @@ export function Hero() {
 
             {/* Fake bar chart */}
             <div className="mb-4 flex h-24 items-end gap-2">
-              {[40, 65, 55, 80, 72, 90, 85].map((h, i) => (
+              {CHART_BARS.map((h, i) => (
                 <motion.div
                   key={i}
                   initial={{ scaleY: 0 }}
                   animate={{ scaleY: 1 }}
                   transition={{ delay: 0.4 + i * 0.06, duration: 0.5, ease: "easeOut" }}
                   style={{ height: `${h}%`, originY: "bottom" }}
-                  className={`flex-1 rounded-t-md ${i === 5 ? "bg-gradient-to-t from-emerald-600 to-emerald-400" : "bg-emerald-100"}`}
+                  className={`flex-1 rounded-t-md ${i === HIGHLIGHTED_BAR ? "bg-gradient-to-t from-emerald-600 to-emerald-400" : "bg-emerald-100"}`}
                 />
               ))}
             </div>

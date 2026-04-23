@@ -21,8 +21,8 @@ function useDaysLeft(id: string) {
       setDays(Math.max(0, Math.ceil(diff / 86_400_000)));
     };
     calc();
-    const id_ = setInterval(calc, 60_000);
-    return () => clearInterval(id_);
+    const timerId = setInterval(calc, 60_000);
+    return () => clearInterval(timerId);
   }, [id]);
   return days;
 }

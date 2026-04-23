@@ -44,6 +44,8 @@ const testimonials = [
   },
 ];
 
+const CAROUSEL_INTERVAL_MS = 4500;
+
 export function Testimonials() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -52,7 +54,7 @@ export function Testimonials() {
   const startTimer = () => {
     timerRef.current = setInterval(
       () => setActive((prev) => (prev + 1) % testimonials.length),
-      4500
+      CAROUSEL_INTERVAL_MS
     );
   };
 
@@ -98,6 +100,7 @@ export function Testimonials() {
                     alt={`${item.name} photo`}
                     width={44}
                     height={44}
+                    loading="lazy"
                     className="h-11 w-11 rounded-full border border-emerald-100 object-cover"
                   />
                   <div>

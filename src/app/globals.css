@@ -76,9 +76,8 @@ a {
 
 /* ── Global micro-interactions ──────────────────────── */
 
-/* Primary buttons */
-button:not([disabled]):active,
-a[class*="rounded-full"]:active {
+/* Primary buttons: click scale feedback */
+.btn-primary:active {
   transform: scale(0.97);
   transition: transform 80ms ease;
 }

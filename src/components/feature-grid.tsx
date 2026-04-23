@@ -63,12 +63,15 @@ export function FeatureGrid() {
       </h2>
 
       {/* Tab bar */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Feature categories">
         {tabs.map((tab) => {
           const TabIcon = tab.icon;
           return (
             <button
               key={tab.id}
+              role="tab"
+              aria-selected={active === tab.id}
+              aria-controls={`tab-panel-${tab.id}`}
               onClick={() => setActive(tab.id)}
               className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition duration-200 ${
                 active === tab.id
@@ -76,7 +79,7 @@ export function FeatureGrid() {
                   : "border border-emerald-100 bg-white text-slate-600 hover:border-emerald-300 hover:text-emerald-700"
               }`}
             >
-              <TabIcon className="h-4 w-4" />
+              <TabIcon className="h-4 w-4" aria-hidden="true" />
               {tab.label}
             </button>
           );
@@ -84,7 +87,12 @@ export function FeatureGrid() {
       </div>
 
       {/* Panel */}
-      <div className="overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm">
+      <div
+        id={`tab-panel-${active}`}
+        role="tabpanel"
+        aria-labelledby={active}
+        className="overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm"
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
