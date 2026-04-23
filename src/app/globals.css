@@ -44,37 +44,64 @@ a {
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }
 
+/* ── Keyframes ──────────────────────────────────────── */
+
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
 }
 
 @keyframes confetti {
-  0% {
-    transform: translateY(-8px) rotate(0deg);
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(95px) rotate(240deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(-8px) rotate(0deg); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translateY(95px) rotate(240deg); opacity: 0; }
 }
 
 @keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
+
+/* Hero CTA glow pulse — subtle, every 6 s */
+@keyframes hero-pulse {
+  0%, 100% { opacity: 0; }
+  50%       { opacity: 0.25; }
+}
+
+/* Logo ticker scroll */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Global micro-interactions ──────────────────────── */
+
+/* Primary buttons: click scale feedback */
+.btn-primary:active {
+  transform: scale(0.97);
+  transition: transform 80ms ease;
+}
+
+/* Animated underline on plain links */
+nav a,
+footer a {
+  position: relative;
+}
+
+nav a::after,
+footer a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 200ms ease;
+}
+
+nav a:hover::after,
+footer a:hover::after {
+  width: 100%;
+}
+
